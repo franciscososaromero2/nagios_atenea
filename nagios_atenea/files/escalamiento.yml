@@ -1,0 +1,11 @@
+---
+contacts:
+ - compute: 5555555555
+ - dataengine: 5555555
+ - networking: 555555555
+ - storage: 555555555
+ - sdsi: 55555555555
+ - automate: 5555555555
+ - infra_ent_seg: 555555555
+ - nagiosadmin: 555555555
+

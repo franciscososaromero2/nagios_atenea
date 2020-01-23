@@ -1,0 +1,78 @@
+---
+# tasks file for nagios_atenea
+  - name: Install pythom modules from RPM 
+    yum:
+     name: "{{ item }}"
+     state: latest
+    with_items: 
+     - python2-pyyaml.noarch
+     - python-requests.noarch
+     - python2-simplejson.x86_64
+     - python-urllib3.noarch
+     - PyYAML.x86_64
+     - python-configparser.noarch
+     - python-daemon.noarch
+
+
+  - name:  Create install directory  
+    file: 
+     path: "{{ item }}"
+     recurse: yes
+     mode: 0775
+     state: directory
+    with_items:
+     - "{{ install_path }}"
+     - "{{ install_path }}/logs"
+  
+  - name: Create initscript file  
+    copy: 
+     src: nagios_atenea 
+     dest: /etc/init.d/
+     mode: 0755 
+     owner: root
+
+  - name: Copy cert and key
+    copy: 
+     src: "{{ item }}"
+     dest: "{{ install_path }}"
+     mode: 0400
+     owner: root
+     group: root 
+    with_items:
+     - "monitoring_chesmitry.pem"
+     - "monitoring_chesmitry.key"
+
+  - name: Copy files for scale and servers filter.
+    copy: 
+     src: "{{ item }}"
+     dest: "{{ install_path }}"
+     mode: 0644
+     owner: root 
+    with_items: 
+     - "{{ list_servers }}"
+     - "{{ nagios_scale }}"
+
+  - name: Create daemon script  
+    copy:
+     src: create_alerts_nagios.py
+     dest: "{{ install_path }}"
+     mode: 0750
+     owner: root 
+
+  - name: Create config_file 
+    template: 
+      src: config.properties.j2
+      dest: "{{ install_path }}/config.properties"
+      mode: 0644
+      owner: root 
+      backup: yes
+
+  - name: Start service Script 
+    command: /etc/init.d/nagios_atenea start 
+
+
+
+
+
+
+

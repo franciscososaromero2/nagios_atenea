@@ -1,0 +1,21 @@
+---
+# defaults file for nagios_atenea
+nagios_server: 10.x.x.x
+nagios_username: nagios_user
+nagios_password: nagios_pass
+install_path: "/path/to/install/"
+
+list_servers: "list_servers.yml"
+#Data to scale teams
+nagios_scale: "escalamiento.yml"
+
+
+namespace: namespace
+platform: live.mx
+semaas_endpoint: mr-tls.x.x.x.x
+semaas_endpoint_email: sigma-tls.x.x.x
+semaas_cert: "cert.pem"
+semaas_key: "monitoring.key"
+interval_check: 120
+log_registry: "/logs/atenea_nagios.log"
+

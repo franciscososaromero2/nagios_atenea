@@ -1,0 +1,6 @@
+- remote_user: "cloud-user"
+  become: true
+  hosts: "all"
+  roles:
+   - nagios_atenea
+

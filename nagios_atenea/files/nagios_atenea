@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# /etc/init.d/nagios_atenea
+
+### BEGIN INIT INFO
+### END INIT INFO
+
+case "$1" in
+   start)
+      echo "Starting service Nagios Alerts To Atenea"
+      python /MONITORIZACION/uti/nagios_atenea/create_alerts_nagios.py start > /dev/null 
+      ;;
+
+   stop)
+      echo "Stopping service Nagios Alerts To Atenea"
+      python /MONITORIZACION/uti/nagios_atenea/create_alerts_nagios.py stop > /dev/null
+      ;;
+
+   restart)
+      echo "Restarting server"
+      python /MONITORIZACION/uti/nagios_atenea/create_alerts_nagios.py restart > /dev/null
+      ;;
+
+   status) 
+	if [ ! -f /var/run/nagios_atenea.pid ]; then
+		echo "Service Nagios Alerts To Atenea is down"
+		exit 2
+	elif [ -f /var/run/nagios_atenea.pid ]; then
+		pidproc=`cat /var/run/nagios_atenea.pid` 
+		echo "Service Nagios Alerts To Atenea is UP, with PID $pidproc"
+                exit 0
+        fi
+      ;;
+
+   *)
+      echo "Usage: /etc/init.d/nagios_atenea {start|stop|restart|status}"
+      exit 1
+      ;;
+esac
+exit 0
+

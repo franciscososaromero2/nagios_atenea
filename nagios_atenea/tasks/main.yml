@@ -39,8 +39,8 @@
      owner: root
      group: root 
     with_items:
-     - "monitoring_chesmitry.pem"
-     - "monitoring_chesmitry.key"
+     - "monitoring.pem"
+     - "monitoring.key"
 
   - name: Copy files for scale and servers filter.
     copy: 
